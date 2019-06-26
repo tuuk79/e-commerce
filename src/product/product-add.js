@@ -1,4 +1,5 @@
 import React from 'react'
+import { ajax } from 'rxjs/ajax'
 
 class ProductAdd extends React.Component {
 	constructor(props) {
@@ -14,7 +15,17 @@ class ProductAdd extends React.Component {
 	}
 
 	handleSubmit(event) {
-		alert('A name was submitted: ' + this.state.value);
+		fetch("http://localhost:3000/products")
+			.then(res => res.json())
+			.then(
+				(result) => {
+					console.log(result)
+				},
+				(error) => {
+					console.log(error)
+				}
+			)
+
 		event.preventDefault();
 	}
 
@@ -22,12 +33,11 @@ class ProductAdd extends React.Component {
 		return (
 			<div>
 				<h1>Add Product</h1>
-				<form onSubmit={this.handleSubmit}>
+				<form>
 					<label>
-						Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+						Name:<input type="text" value={this.state.value} />
 					</label>
-					<input type="submit" value="Submit" />
+					<button value="Submit" onClick={this.handleSubmit} />
 				</form>
 			</div>
 		);

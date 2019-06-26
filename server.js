@@ -9,4 +9,9 @@ app.use(express.static(path.join(__dirname, 'build')));
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
+app.get('/products', (req, res) => {
+	console.log('reached products');
+	res.send('reached products')
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
