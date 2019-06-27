@@ -1,5 +1,4 @@
 import React from 'react'
-import { ajax } from 'rxjs/ajax'
 
 class ProductAdd extends React.Component {
 	constructor(props) {
@@ -15,6 +14,7 @@ class ProductAdd extends React.Component {
 	}
 
 	handleSubmit(event) {
+
 		fetch("http://localhost:3000/products")
 			.then(res => res.json())
 			.then(
