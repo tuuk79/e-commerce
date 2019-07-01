@@ -10,28 +10,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost:27017/test", { useNewUrlParser: true });
+
+var productSchema = new mongoose.Schema({
+	name: String
+});
+
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
 app.get('/products', (req, res) => {
-	console.log('reached products');
-	res.send('reached products')
+	res.send({ "name": "namester" })
 })
 
 app.post('/add-product', (req, res) => {
-	mongoose.Promise = global.Promise;
-	mongoose.connect("mongodb://localhost:27017/test");
-
-	var productSchema = new mongoose.Schema({
-		name: String
-	});
 
 	var Product = mongoose.model("Product", productSchema);
 
 	var product = new Product(req.body);
 	product.save()
 		.then(item => {
+			console.log(product)
 			res.send("item saved to database");
 		})
 		.catch(err => {

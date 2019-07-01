@@ -19,7 +19,8 @@ class ProductAdd extends React.Component {
 			.then(res => res.json())
 			.then(
 				(result) => {
-					console.log(result)
+					console.log(result.name)
+					console.log('doh')
 				},
 				(error) => {
 					console.log(error)
