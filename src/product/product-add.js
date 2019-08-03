@@ -14,13 +14,21 @@ class ProductAdd extends React.Component {
 	}
 
 	handleSubmit(event) {
-
-		fetch("http://localhost:3000/products")
+		console.log(event)
+		fetch("/add-product", {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: this.state.value
+			})
+		})
 			.then(res => res.json())
 			.then(
 				(result) => {
-					console.log(result.name)
-					console.log('doh')
+					console.log(result)
 				},
 				(error) => {
 					console.log(error)
@@ -34,11 +42,12 @@ class ProductAdd extends React.Component {
 		return (
 			<div>
 				<h1>Add Product</h1>
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<label>
-						Name:<input type="text" value={this.state.value} />
+						Name:<input type="text" value={this.state.value} onChange={this.handleChange}
+						/>
 					</label>
-					<button value="Submit" onClick={this.handleSubmit} />
+					<input type="submit" value="Submit" />
 				</form>
 			</div>
 		);
