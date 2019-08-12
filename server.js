@@ -21,8 +21,19 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
-app.get('/products', (req, res) => {
-	res.send({ "name": "namester" })
+app.get('/get-products', (req, res) => {
+	var Product = mongoose.model("Product", productSchema);
+
+	var products = Product.find({}, function(err, items) {
+		if (err) {
+			return res.send();
+		}
+	}).exec(function(err, items) {
+		if (err) {
+			return res.send()
+		}
+		res.send(items)
+	})	
 })
 
 app.post('/add-product', (req, res) => {
@@ -32,12 +43,39 @@ app.post('/add-product', (req, res) => {
 	var product = new Product(req.body);
 	product.save()
 		.then(item => {
-			console.log(product)
 			res.send("item saved to database");
 		})
 		.catch(err => {
 			res.status(400).send("unable to save to database");
 		});
+})
+
+app.put('/update-product/:id', (req, res) => {
+	var Product = mongoose.model("Product", productSchema);
+
+	var query = { _id: req.params.id }
+
+	Product.update(query, { name: req.body.name })
+		.then(item => {
+			res.send('item updated in database');
+		})
+		.catch(err => {
+			res.status(400).send("unable to update item in database");
+		})
+})
+
+app.delete('/delete-product/:id', (req, res) => {
+	var Product = mongoose.model("Product", productSchema);
+
+	var query = {_id: req.params.id }
+
+	Product.deleteOne(query)
+		.then(item => {
+			res.send('item deleted from database');
+		})
+		.catch(err => {
+			res.status(400).send("unable to delete item in database");
+		})
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
