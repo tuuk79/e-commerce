@@ -1,6 +1,8 @@
 Creating my own e-commerce software.
 
-Tech stack:
+MERN app:
+Mongo
+Express
 React
 Redux
-Mongo
+Node
