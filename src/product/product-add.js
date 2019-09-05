@@ -14,7 +14,6 @@ class ProductAdd extends React.Component {
 	}
 
 	handleSubmit(event) {
-		console.log(event)
 		fetch("/add-product", {
 			method: 'POST',
 			headers: {
@@ -47,7 +46,7 @@ class ProductAdd extends React.Component {
 						Name:<input type="text" value={this.state.value} onChange={this.handleChange}
 						/>
 					</label>
-					<input type="submit" value="Submit" />
+					<input type="submit" value="Add" />
 				</form>
 			</div>
 		);
