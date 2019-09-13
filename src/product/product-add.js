@@ -14,7 +14,7 @@ class ProductAdd extends React.Component {
 	}
 
 	handleSubmit(event) {
-		fetch("/add-product", {
+		fetch(`http://localhost:4000/add-product`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
