@@ -9,9 +9,7 @@ app.use(bodyParser.json());
 mongoose.connect("mongodb://localhost:27017/test", { useNewUrlParser: true });
 
 var productSchema = new mongoose.Schema({
-  _id: String,
-  name: String,
-  __v: String
+  name: String
 });
 
 var Product = mongoose.model("Product", productSchema);

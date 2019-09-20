@@ -1,4 +1,7 @@
 import React from "react";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -9,22 +12,22 @@ class ProductList extends React.Component {
   componentDidMount() {
     fetch("http://localhost:4000/get-products")
       .then(response => response.json())
-      .then(data => this.setState({ products: data }, this.showState))
+      .then(data => this.setState({ products: data }))
       .catch(error => this.setState({ error }));
-  }
-
-  showState() {
-    console.log("showing state");
-    console.log(this.state);
   }
 
   render() {
     return (
-      <ul>
-        {this.state.products.map(product => (
-          <li>{product.name}</li>
+      <div>
+        {this.state.products.map((product, i) => (
+          <Card key={i}>
+            <CardContent>
+              <Typography>name:</Typography>
+              <Typography>{product.name}</Typography>
+            </CardContent>
+          </Card>
         ))}
-      </ul>
+      </div>
     );
   }
 }
