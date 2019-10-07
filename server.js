@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const port = 4000;
 const mongoose = require("mongoose");
+var cors = require("cors");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+
+app.use(cors());
 
 mongoose.connect("mongodb://localhost:27017/test", { useNewUrlParser: true });
 
