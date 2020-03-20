@@ -1,4 +1,4 @@
-Creating my own e-commerce software.
+A minimalistic e-commerce software.
 
 MERN app:
 Mongo
